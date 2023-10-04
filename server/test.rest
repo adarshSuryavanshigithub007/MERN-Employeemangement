@@ -1,0 +1,23 @@
+
+###
+GET http://localhost:8000/userlist
+
+
+###
+POST http://localhost:8000/userlist
+Content-Type: application/json
+
+{
+"name" : " s",
+"fullname": "adarsh  suryavanshi",
+"mobile": "80739863",
+"dof": "26/01/2008",
+    "state": "Maharastra",
+    "district": "kolhapur",
+    "taluka": "miraj",
+    "village": "sangli",
+
+"department": "dev",
+"address": "station road",
+"photo": null
+}
