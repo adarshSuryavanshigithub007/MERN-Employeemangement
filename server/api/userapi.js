@@ -15,13 +15,14 @@ router.post("/", async (req, res) => {
         name: req.body.name,
         fullname: req.body.fullname,
         mobile: req.body.mobile,
+        gender:req.body.gender,
+        email:req.body.email,
         dof: req.body.dof,
         state: req.body.state,
         district: req.body.district,
-        taluka: req.body.taluka,
-        village: req.body.village,
         department: req.body.department,
         address: req.body.address,
+        status:req.body.status,
         photo: req.body.photo
     });
     let newempinfo = await newemp.save();

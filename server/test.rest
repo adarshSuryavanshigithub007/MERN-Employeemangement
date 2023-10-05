@@ -10,14 +10,14 @@ Content-Type: application/json
 {
 "name" : " s",
 "fullname": "adarsh  suryavanshi",
-"mobile": "80739863",
+"mobile": "8073980562",
+"gender":"MALE",
+"email":"adarshsuryavanshi3@gmail.com",
 "dof": "26/01/2008",
     "state": "Maharastra",
     "district": "kolhapur",
-    "taluka": "miraj",
-    "village": "sangli",
-
 "department": "dev",
 "address": "station road",
+"status":"InActive",
 "photo": null
 }
