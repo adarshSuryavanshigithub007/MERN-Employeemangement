@@ -32,7 +32,75 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+/* Pagination.css */
+
+/* Style the pagination container */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  list-style: none;
+  /* Remove list-style (dots) */
+}
+
+/* Style the pagination buttons */
+.page-item {
+  margin: 0 5px;
+  list-style: none;
+  /* Remove list-style (dots) */
+}
+
+/* Style the page numbers */
+.page-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #333;
+  color: white;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  outline: none;
+  /* Remove outline (the small dots) on focus */
+}
+
+/* Style the active page number */
+.active-page .page-link {
+
+  background-color: #007bff;
+  /* Text color for active page number */
+}
+
+/* Style the previous and next buttons */
+.previous,
+.next {
+  background-color: white;
+  ;
+  color: #007bff;
+  ;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  margin: 0 5px;
+  transition: background-color 0.3s;
+  outline: none;
+  /* Remove outline (the small dots) on focus */
+}
+
+/* Hover effect for the previous and next buttons */
+.previous:hover,
+.next:hover {
+  text-decoration: underline;
+  /* Add underline on hover */
 }
