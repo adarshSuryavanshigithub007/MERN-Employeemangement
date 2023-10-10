@@ -12,9 +12,10 @@ import CircleNotificationsIcon from '@mui/icons-material/CircleNotifications';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import AirlineSeatReclineNormalIcon from '@mui/icons-material/AirlineSeatReclineNormal';
 import axios from 'axios';
-import swal from 'sweetalert';
-const AddNewUser = () => {
-  const [name, UpadateName] = useState("");
+import { useParams } from 'react-router-dom';
+const Edit = () => {
+    const {id} = useParams()
+    const [name, UpadateName] = useState("");
   const [fullname, UpdateFullName] = useState("")
   const [email, UpadteEmail] = useState("");
   const [mobile, UpdateMobile] = useState("")
@@ -26,74 +27,25 @@ const AddNewUser = () => {
   const [address, UpadteAddress] = useState("");
   const [dept, UpdateDept] = useState("")
   const [photo, UpdatePhoto] = useState("")
-  console.log(photo)
-  const[file,setFile]=useState('')
-const [data,setData]=useState([])
-console.log("photo",photo)
-  const submit = () => {
-    let newData = {
-      "name": name,
-      "fullname": fullname,
-      "mobile": mobile,
-      "gender": gender,
-      "email": email,
-      "dof": date,
-      "state": state,
-      "district": district,
-      "department": dept,
-      "address": address,
-      "status": status,
-      "photo": photo
-    }
-    let url = " http://localhost:8000/userlist"
-    axios.post(url,newData).then((response) => {
-      console.log(response)
-    })
-    swal(name, "save successfully", "success")
-    .catch((error)=>{
-      if(error.response){
-        if(error.response.status===400){
-          const validationErrors = error.response.data.errors;
-          // Display validation errors to the user, e.g., set state or show an alert
-          alert(`Validation errors:\n${JSON.stringify(validationErrors, null, 2)}`);
-        }else{
-          console.error(error.response.data);
-        }
-      }else{
-        console.error('Network error:', error.message);
-      }
-    })   
+console.log(id)
+  const getalluser = () => {
+    let url = `http://localhost:8000/userlist/${id}`
+    axios.get(url).then((response) => {
+     
+        console.log(response.data)
+        UpadateName(response.data)
+    
+    }).catch((err) => {
+      console.log(`${err.message}`)
+      alert(`${err.message}`)
+    });
+
   }
 
-  useEffect(()=>{
-    UpadateName('')
-    UpadteAddress('')
-    UpadteDate('')
-    UpadteEmail('')
-    UpdateGender('')
-    UpdateDept('')
-    UpdateDistrict('')
-    UpdateState('')
-    UpdatePhoto('')
-    UpdateMobile('')
-    UpadteStatus('')
-  },[1])
-  const handleImageChange = (event)=>{
-    const selectedImage = event.target.files[0]
-    console.log(selectedImage)
-    UpdatePhoto(event.target.value)
-    if (selectedImage) {
-      // Read the selected file as a data URL
-      const reader = new FileReader();
-
-      reader.onload = (e) => {
-        // Update the 'photo' state with the data URL of the selected image
-        UpdatePhoto(e.target.result);
-      };
-
-      reader.readAsDataURL(selectedImage);
-    }
-  }
+  useEffect(() => {
+    getalluser()
+  }, [1])
+  
   return (
     <>
       <Grid item xs={12} md={12} >
@@ -112,7 +64,7 @@ console.log("photo",photo)
             <Grid item xs={12} md={6} >
               <Box sx={{ display: 'flex', alignItems: 'flex-end', marginBottom: 2 }}>
                 <PersonIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
-                <TextField label="Name" variant="standard" fullWidth type='text' onChange={obj => UpadateName(obj.target.value)} />
+                <TextField label="Name" variant="standard" fullWidth type='text' onChange={obj => UpadateName(obj.target.value)} value={name}/>
               </Box>
               <Box sx={{ display: 'flex', alignItems: 'flex-end', marginBottom: 2 }}>
                 <GroupIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
@@ -172,13 +124,12 @@ console.log("photo",photo)
               </Box>
               <Box sx={{ display: 'flex', alignItems: 'flex-end', marginBottom: 2 }}>
                 <CameraAltIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
-                <input  type='file' name='profileImage' fullWidth onChange={handleImageChange} />
-              
+                <TextField label='selfie/image' variant="standard" fullWidth onChange={obj => UpdatePhoto(obj.target.value)} />
               </Box>
             </Grid>
             <Grid item xs={12} md={12} >
               <Grid align='center'>
-                <Button variant='contained' color='primary' onClick={submit} >Submit</Button>
+                <Button variant='contained' color='primary' >Submit</Button>
               </Grid>
             </Grid>
           </Grid>
@@ -189,4 +140,4 @@ console.log("photo",photo)
   )
 }
 
-export default AddNewUser
+export default Edit

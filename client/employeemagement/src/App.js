@@ -5,6 +5,9 @@ import Navbar from './layout/Navbar';
 import ListUser from './pages/ListUser';
 import AddNewUser from './pages/AddNewUser';
 import ImportData from './pages/ImportData';
+import Edit from './pages/Edit';
+import Login from './Authentication/Login';
+import Register from './Authentication/Register';
 
 function App() {
   return (
@@ -14,6 +17,9 @@ function App() {
           <Route exact path='/' element={<ListUser/>}/>
           <Route exact path='/addnewuser' element={<AddNewUser/>}/>
           <Route exact path='/importdata' element={<ImportData/>}/>
+          <Route exact path='/edit/:id' element={<Edit/>}/>
+          <Route exact path='/login' element={<Login/>}/>
+          <Route exact path='/register' element={<Register/>}/>
         </Routes>
       </HashRouter>
 

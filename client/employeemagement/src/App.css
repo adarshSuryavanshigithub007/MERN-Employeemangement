@@ -70,14 +70,16 @@
   text-decoration: none;
   transition: background-color 0.3s;
   outline: none;
+  cursor: pointer;
   /* Remove outline (the small dots) on focus */
 }
 
 /* Style the active page number */
 .active-page .page-link {
-
+  cursor: pointer;
   background-color: #007bff;
   /* Text color for active page number */
+ 
 }
 
 /* Style the previous and next buttons */
@@ -87,7 +89,7 @@
   ;
   color: #007bff;
   ;
-
+  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;

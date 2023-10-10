@@ -73,29 +73,20 @@ const Navbar = () => {
               }}
             >
               <MenuItem onClick={handleCloseNavMenu}>
-
                 <Typography textAlign="center">
                   <Link to="/" style={{ textDecoration: 'none', }}> AllUsers</Link>
                 </Typography>
-
               </MenuItem>
               <MenuItem onClick={handleCloseNavMenu}>
-
-
                 <Typography textAlign="center">
                   <Link to="/addnewuser" style={{ textDecoration: 'none', }}> AddNewUser </Link>
                 </Typography>
-
               </MenuItem>
               <MenuItem onClick={handleCloseNavMenu}>
-
-
                 <Typography textAlign="center">
                   <Link to="/importdata" style={{ textDecoration: 'none', }}> importToExcel </Link>
                 </Typography>
-
               </MenuItem>
-
             </Menu>
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
@@ -112,7 +103,7 @@ const Navbar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/3.jpg" />
+                <Avatar alt="Remy Sharp" src="https://d2v5dzhdg4zhx3.cloudfront.net/web-assets/images/storypages/short/linkedin-profile-picture-maker/dummy_image/thumb/004.webp" />
               </IconButton>
             </Tooltip>
             <Menu

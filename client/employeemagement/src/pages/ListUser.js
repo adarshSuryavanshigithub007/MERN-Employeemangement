@@ -6,17 +6,19 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import SearchIcon from '@mui/icons-material/Search';
+import { Link } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CreateIcon from '@mui/icons-material/Create';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import { Avatar, Badge, Grid, IconButton, Menu, MenuItem, Paper, Tooltip, selectClasses } from '@mui/material';
+import swal from 'sweetalert';
+import { Avatar, Badge, Box, Button, FormControl, Grid, IconButton, InputAdornment, InputLabel, Menu, MenuItem, Paper, Select, TextField, Tooltip, selectClasses } from '@mui/material';
 import ReactPaginate from 'react-paginate';
 const ListUser = () => {
   const [userlist, updateUserList] = useState([])
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const PER_PAGE = 10
-  const ITEM_HEIGHT = 18;
+  const [keyword, setKeyword] = useState('')
+  console.log(keyword)
+  const PER_PAGE = 5
   const [currentPage, setCurrentPage] = useState(0)
   function handlePageClick({ selected: selectedPage }) {
     setCurrentPage(selectedPage)
@@ -25,12 +27,11 @@ const ListUser = () => {
   const pageCount = Math.ceil(userlist.length / PER_PAGE)
   const getalluser = () => {
     axios.get("http://localhost:8000/userlist").then((response) => {
-     
-        console.log(response.data)
-        updateUserList(response.data)
-    
+      console.log(response.data)
+      updateUserList(response.data.reverse())
     }).catch((err) => {
-      console.log(err)
+      console.log(`${err.message}`)
+      alert(`${err.message}`)
     });
 
   }
@@ -39,19 +40,87 @@ const ListUser = () => {
     getalluser()
   }, [1])
 
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+
+  const deleteuser = (id, name) => {
+      swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this imaginary file!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          const url = "http://localhost:8000/userlist/" + id;
+          const postdata = { method: "delete" }
+          fetch(url, postdata)
+            .then(response => response.json())
+            .then(Serverres => {
+              // alert(name)
+              getalluser()
+            })
+          swal("Poof! Your imaginary file has been deleted!", {
+            icon: "success",
+          });
+        } else {
+          swal("Your imaginary file is safe!");
+        }
+      });
+  }
+
+  const search = () => {
+
+    axios.get("http://localhost:8000/userlist/" + keyword).then((response) => {
+      console.log(response.data)
+      updateUserList(response.data)
+
+    }).catch((err) => {
+      console.log(`${err.message}`)
+      alert(`${err.message}`)
+    });
+  }
+  const reset = () => {
+    axios.get("http://localhost:8000/userlist").then((response) => {
+      console.log(response.data)
+      updateUserList(response.data.reverse())
+    }).catch((err) => {
+      console.log(`${err.message}`)
+      alert(`${err.message}`)
+    });
+  }
+
   return (
     <Grid container sx={{ justifyContent: 'center', marginTop: 0 }} >
-      <Grid item xs={12} md={12} >
+      <Grid item xs={12} md={3} >
         <Grid sx={{ textAlign: 'left', color: 'green', fontSize: 18 }}>
           <h3 >List Of AllUser</h3>
         </Grid>
+      </Grid>
+
+      <Grid item xs={12} md={4} marginTop={2} >
+
+        <Box sx={{ display: 'flex', alignItems: 'flex-end', marginBottom: 2 }}>
+          <Paper>
+            <TextField
+
+              onChange={obj => setKeyword(obj.target.value)}
+              placeholder='Serch Name.......'
+              fullWidth
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon sx={{ color: 'action.active', marginRight: "20px" }} />
+                  </InputAdornment>
+                ),
+              }}
+              variant="standard"
+            />
+
+          </Paper>
+          <Button color='secondary' variant='contained' sx={{ marginLeft: '10px' }} onClick={search}>Search</Button>
+          <Button color='info' variant='contained' sx={{ marginLeft: '10px' }} onClick={reset}>Reset</Button>
+        </Box>
+
       </Grid>
       <Grid item xs={12} md={11}>
         <TableContainer component={Paper}>
@@ -71,7 +140,7 @@ const ListUser = () => {
                 <TableCell sx={{ textAlign: 'center', fontSize: 15, color: "white" }}>District</TableCell>
                 <TableCell sx={{ textAlign: 'center', fontSize: 15, color: "white" }}>Address</TableCell>
                 <TableCell sx={{ textAlign: 'center', fontSize: 15, color: "white" }}>Status</TableCell>
-                <TableCell sx={{ textAlign: 'center', fontSize: 15, color: "white" }}>Action</TableCell>
+                <TableCell sx={{ textAlign: 'center', fontSize: 15, color: "white" }} colSpan={3}>Action</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -96,41 +165,16 @@ const ListUser = () => {
                           {userinfo.status}
                         </Badge>
                       </TableCell>
-                      <TableCell> <div>
-                        <IconButton
-                          aria-label="more"
-                          id="long-button"
-                          aria-controls={open ? 'long-menu' : undefined}
-                          aria-expanded={open ? 'true' : undefined}
-                          aria-haspopup="true"
-                          onClick={handleClick}
-                        >
-                          <MoreVertIcon />
-                        </IconButton>
-                        <Menu
-                          id="long-menu"
-                          MenuListProps={{
-                            'aria-labelledby': 'long-button',
-                          }}
-                          anchorEl={anchorEl}
-                          open={open}
-                          onClose={handleClose} >
-                          <MenuItem>
-                            <Tooltip title="Delete">
-                              <DeleteIcon color='error' />
-                            </Tooltip>
-                          </MenuItem>
-                          <MenuItem>
-                            <Tooltip title="Eddit">
-                              <CreateIcon color='success' />
-                            </Tooltip>
-                          </MenuItem>
-                          <MenuItem>
-                            <Tooltip title="View"> <VisibilityIcon color='primary' /></Tooltip>
-                          </MenuItem>
-                        </Menu>
-                      </div>
+                      <TableCell>
+                        <DeleteIcon color='error' onClick={() => deleteuser(userinfo._id, userinfo.name)} />
                       </TableCell>
+                      <TableCell>
+                        <Link to={`edit/${userinfo._id}`}><CreateIcon color='success' /></Link>
+                      </TableCell>
+                      <TableCell>
+                        <VisibilityIcon color='primary' />
+                      </TableCell>
+                      
                     </TableRow>
                   )
                 })
