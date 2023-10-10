@@ -17,6 +17,10 @@ app.use(express.json());
 const user = require("../api/userapi")
 app.use("/userlist",user) //http://localhost:8000/userlist
 
+const userlogin = require("../Authentication/api/customerapi")
+app.use("/customerlogin",userlogin) //http://localhost:8000/customerlogin
+
+
 app.listen(8000, function () {
     console.log(`this server is live.......`)
 })

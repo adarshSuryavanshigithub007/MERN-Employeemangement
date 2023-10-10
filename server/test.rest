@@ -8,16 +8,52 @@ POST http://localhost:8000/userlist
 Content-Type: application/json
 
 {
-"name" : " s",
+"name" : " sanjay2",
 "fullname": "adarsh  suryavanshi",
 "mobile": "8073980562",
 "gender":"MALE",
 "email":"adarshsuryavanshi3@gmail.com",
 "dof": "26/01/2008",
-    "state": "Maharastra",
-    "district": "kolhapur",
+"state": "Maharastra",
+"district": "kolhapur",
 "department": "dev",
 "address": "station road",
 "status":"InActive",
 "photo": null
+}
+
+
+###
+DELETE  http://localhost:8000/userlist/651ebc255e8e65f1bd3646b0
+
+
+###
+PATCH http://localhost:8000/userlist
+Content-Type: application/json
+
+{
+    "name": "sanjay suryavnshi",
+    "fullname": "adarsh ",
+    "mobile": "7253446451",
+    "gender": "MALE",
+    "email": "sanju44@gmail.com",
+    "dof": "26/01/1998",
+    "state": "Maharastra",
+    "district": "kolhapur",
+    "department": "dev",
+    "address": "station road",
+    "status": "active",
+    "photo": null
+}
+
+
+###
+POST http://localhost:8000/customerlogin
+Content-Type: application/json
+
+{
+"username": "us3",
+"email":"user30@gmail.com",
+"password": "user@1",
+"photo":"https://images.unsplash.com/photo-1554080353-a576cf803bda?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGhvdG98ZW58MHx8MHx8fDA%3D&w=1000&q=80"
 }

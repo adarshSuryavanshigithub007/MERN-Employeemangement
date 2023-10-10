@@ -66,9 +66,9 @@ const userStructure = new mongoose.Schema({
         require: true,
 
     },
-    photo: {
-        type: String,
-        require: true
+    profileImage:{
+        type:String,
+        required:false
     }
 
 })
