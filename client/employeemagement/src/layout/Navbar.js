@@ -21,6 +21,10 @@ const Navbar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  const logOut = ()=>{
+    localStorage.clear()
+    window.location.reload()
+  }
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -123,7 +127,7 @@ const Navbar = () => {
               onClose={handleCloseUserMenu}
             >
               <MenuItem onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">Logout</Typography>
+                <Typography textAlign="center" onClick={logOut}>Logout</Typography>
               </MenuItem>
             </Menu>
           </Box>

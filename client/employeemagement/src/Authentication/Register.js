@@ -89,9 +89,6 @@ const Register = () => {
                         label="Password"
                         fullWidth
                         value={password}
-                        required
-                        error={!validPassword}
-                        helperText={!validPassword ? 'Password must contain at least one uppercase letter and one special character' : ''}
                         onChange={handleChangePassword}
                         id="standard-basic" type='password' variant="outlined" size='small'
                         sx={{ marginBottom: '20px' }}

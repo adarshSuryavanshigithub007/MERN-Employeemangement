@@ -1,28 +1,27 @@
 
-import { HashRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import Navbar from './layout/Navbar';
-import ListUser from './pages/ListUser';
-import AddNewUser from './pages/AddNewUser';
-import ImportData from './pages/ImportData';
-import Edit from './pages/Edit';
-import Login from './Authentication/Login';
-import Register from './Authentication/Register';
 
 function App() {
   return (
-      <HashRouter>
+  <>
+  <h1>hello</h1>
+{/*   
+   <HashRouter>
         <Navbar/>
+        
         <Routes>
           <Route exact path='/' element={<ListUser/>}/>
           <Route exact path='/addnewuser' element={<AddNewUser/>}/>
           <Route exact path='/importdata' element={<ImportData/>}/>
           <Route exact path='/edit/:id' element={<Edit/>}/>
+          <Route exact path='/ViewDetails/:id' element={<ViewDetails/>}/>
           <Route exact path='/login' element={<Login/>}/>
           <Route exact path='/register' element={<Register/>}/>
         </Routes>
-      </HashRouter>
+      </HashRouter> */}
 
+  </>
+     
   );
 }
 
