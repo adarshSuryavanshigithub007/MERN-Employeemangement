@@ -1,24 +1,21 @@
 
 import './App.css';
-
+import Login from '../src/Authentication/Login'
+import Register from '../src/Authentication/Register'
+import Navbar from '../src/layout/Navbar'
+import {HashRouter,Routes,Route} from 'react-router-dom'
+import AllUser from './pages/AllUser';
 function App() {
   return (
   <>
-  <h1>hello</h1>
-{/*   
    <HashRouter>
         <Navbar/>
-        
         <Routes>
-          <Route exact path='/' element={<ListUser/>}/>
-          <Route exact path='/addnewuser' element={<AddNewUser/>}/>
-          <Route exact path='/importdata' element={<ImportData/>}/>
-          <Route exact path='/edit/:id' element={<Edit/>}/>
-          <Route exact path='/ViewDetails/:id' element={<ViewDetails/>}/>
           <Route exact path='/login' element={<Login/>}/>
+          <Route exact path='/alluser' element={<AllUser/>}/>
           <Route exact path='/register' element={<Register/>}/>
         </Routes>
-      </HashRouter> */}
+      </HashRouter>
 
   </>
      
