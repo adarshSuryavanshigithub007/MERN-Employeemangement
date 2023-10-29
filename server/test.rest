@@ -1,0 +1,19 @@
+
+###
+GET http://localhost:8000/all
+
+
+###
+POST http://localhost:8000/add
+Content-Type: application/json
+
+{
+        "name": "Priyanka",
+        "username": "Priyanka",
+        "email": "Pri@gmail.com",
+        "mobile": "6086980672"
+}
+
+
+###
+GET   http://localhost:8000/653eb7586eb58d470f88c22e
