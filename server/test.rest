@@ -17,3 +17,15 @@ Content-Type: application/json
 
 ###
 GET   http://localhost:8000/653eb7586eb58d470f88c22e
+
+
+###
+post  http://localhost:8000/653eb7586eb58d470f88c22e
+Content-Type: application/json
+
+{
+     "name": "Priyanka2",
+  "username": "Priyanka2",
+  "email": "Pri2@gmail.com",
+  "mobile": "60869806272"
+}
