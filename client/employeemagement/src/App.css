@@ -38,71 +38,65 @@
   }
 }
 
-/* Pagination.css */
-
-/* Style the pagination container */
-.pagination-container {
+/* Styling for the outer container of the pagination */
+.pagination {
   display: flex;
   justify-content: center;
-  align-items: center;
-  margin-top: 20px;
   list-style: none;
-  /* Remove list-style (dots) */
+  cursor: pointer;
 }
 
-/* Style the pagination buttons */
+/* Styling for each individual page item */
 .page-item {
-  margin: 0 5px;
-  list-style: none;
-  /* Remove list-style (dots) */
+  display: inline-block;
+  margin: 0 4px; /* Adjust margins as needed */
 }
 
-/* Style the page numbers */
+/* Styling for the page links */
 .page-link {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background-color: #333;
-  color: white;
+  display: block;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
   text-decoration: none;
+  color: #333;
+  border-radius: 3px;
   transition: background-color 0.3s;
-  outline: none;
-  cursor: pointer;
-  /* Remove outline (the small dots) on focus */
 }
 
-/* Style the active page number */
-.active-page .page-link {
-  cursor: pointer;
+/* Styling for the active page */
+.active.primary .page-link {
   background-color: #007bff;
-  /* Text color for active page number */
- 
+  color: #fff;
 }
 
-/* Style the previous and next buttons */
-.previous,
-.next {
-  background-color: white;
-  ;
-  color: #007bff;
-  ;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* Styling for the 'Previous' and 'Next' buttons */
+.page-item {
+  display: inline-block;
+  margin: 0 4px; /* Adjust margins as needed */
+}
+
+.page-link {
+  display: block;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
   text-decoration: none;
-  margin: 0 5px;
+  color: #333;
+  border-radius: 3px;
   transition: background-color 0.3s;
-  outline: none;
-  /* Remove outline (the small dots) on focus */
 }
 
-/* Hover effect for the previous and next buttons */
-.previous:hover,
-.next:hover {
-  text-decoration: underline;
-  /* Add underline on hover */
+/* Styling for the '...' break item */
+.page-item.dots {
+  display: inline-block;
+  margin: 0 4px; /* Adjust margins as needed */
+}
+
+.page-link {
+  display: block;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  text-decoration: none;
+  color: #333;
+  border-radius: 3px;
+  transition: background-color 0.3s;
 }

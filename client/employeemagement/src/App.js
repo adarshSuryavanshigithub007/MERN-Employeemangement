@@ -12,7 +12,7 @@ function App() {
         <Navbar/>
         <Routes>
           <Route exact path='/login' element={<Login/>}/>
-          <Route exact path='/alluser' element={<AllUser/>}/>
+          <Route exact path='/' element={<AllUser/>}/>
           <Route exact path='/register' element={<Register/>}/>
         </Routes>
       </HashRouter>

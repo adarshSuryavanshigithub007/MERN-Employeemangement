@@ -26,3 +26,11 @@ import axios from "axios"
             console.log(`error while calling  add user api`,error)
         }
     }
+
+    export const editUser = async(user,id)=>{
+        try {
+            return await axios.post(`${url}/${id}`,user)
+        } catch (error) {
+            console.log(`error while calling  add user api`,error)
+        }
+    }
