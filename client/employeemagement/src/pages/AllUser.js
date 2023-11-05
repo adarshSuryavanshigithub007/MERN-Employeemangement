@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { getUsers } from '../service/api'
-import { Box, Button, Grid, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip } from '@mui/material'
+import { getDeleteUser, getUsers } from '../service/api'
+import { Box, Button, Fab, Grid, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip } from '@mui/material'
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import EditIcon from '@mui/icons-material/Edit';
 import ReactPaginate from "react-paginate";
 import AddIcon from '@mui/icons-material/Add';
+import { Link } from 'react-router-dom';
+import swal from 'sweetalert'
 const AllUser = () => {
     const userHeader = ["s.no", "name", "userName", "email", "mobile", "action"]
     const [alluser, setAllUser] = useState([])
@@ -12,7 +14,7 @@ const AllUser = () => {
     const PER_PAGE = 4
     const offset = currentPage * PER_PAGE;
     const pageCount = Math.ceil(alluser.length / PER_PAGE);
-    console.log(pageCount, alluser.length)
+
     const getAllUsers = async () => {
         try {
             let response = await getUsers()
@@ -23,23 +25,37 @@ const AllUser = () => {
     }
     useEffect(() => {
         getAllUsers()
+
     }, [])
     function handlePageClick({ selected: selectedPage }) {
         setCurrentPage(selectedPage)
     }
+    const handleDelete = (id) => {
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this imaginary file!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                getDeleteUser(id)
+                if (willDelete) {
+                    swal("Poof! Your imaginary file has been deleted!", {
+                        icon: "success",
+                    });
+                    getAllUsers()
+                } else {
+                    swal("Your imaginary file is safe!");
+                }
+            });
+    }
     return (
         <>
-
-
             <Grid container marginTop={3}>
-
-
-
                 <Grid item xs={12} md={12}>
-
-                    <TableContainer sx={{ display: 'flex', justifyContent: 'center',  }}>
-
-                        <Table aria-label="customized table" sx={{ width: '100%', maxWidth: 880,}}>
+                    <TableContainer sx={{ display: 'flex', justifyContent: 'center', }}>
+                        <Table aria-label="customized table" sx={{ width: '100%', maxWidth: 880, }}>
                             <TableHead sx={{ backgroundColor: '#2962ff' }}>
                                 <TableRow >
                                     {
@@ -76,16 +92,15 @@ const AllUser = () => {
                                                     </TableCell>
                                                     <TableCell key={index} sx={{ fontSize: '15px', textAlign: 'center', padding: '0px' }}>
                                                         <Tooltip title='Edit' placement='left-start' arrow>
-                                                            <IconButton>
-                                                                <EditIcon color='primary' />
-                                                            </IconButton>
+                                                          
+                                                        <Link to={`edituser/${eachRecord._id}`} style={{ textDecoration: 'none', }}> <EditIcon color='primary' /></Link>  
+                                                           
                                                         </Tooltip>
                                                     </TableCell>
                                                     <TableCell key={index} sx={{ fontSize: '15px', textAlign: 'center', padding: '10px', cursor: 'pointer' }}>
                                                         <Tooltip title='Delete' placement='right-end' arrow>
-                                                            <IconButton>
-                                                                <DeleteRoundedIcon color='error' />
-                                                            </IconButton>
+                                                        
+                                                                <DeleteRoundedIcon color='error'  onClick={() => handleDelete(eachRecord._id)} />
                                                         </Tooltip>
                                                     </TableCell>
                                                 </TableRow>
@@ -96,16 +111,13 @@ const AllUser = () => {
                                 <TableRow>
                                     <TableCell align="center" colSpan={7}>
                                         <Box display="flex" justifyContent="flex-end">
-                                            <Button variant='contained' color='success' size='medium' endIcon={<AddIcon/>}>ADD New User</Button>
+                                            <Link to="/addnewuser" style={{ textDecoration: 'none', }}>  <Button variant='contained' color='success' size='medium' endIcon={<AddIcon />}>ADD New User</Button> </Link>
                                         </Box>
                                     </TableCell>
                                 </TableRow>
                             </TableBody>
-
                         </Table>
-
                     </TableContainer>
-
                     <ReactPaginate
                         previousLabel={"Previous"}
                         nextLabel={"Next"}

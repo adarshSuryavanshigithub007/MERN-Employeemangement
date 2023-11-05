@@ -83,11 +83,6 @@ const Navbar = () => {
               </MenuItem>
               <MenuItem onClick={handleCloseNavMenu}>
                 <Typography textAlign="center">
-                  <Link to="/addnewuser" style={{ textDecoration: 'none', }}> AddNewUser </Link>
-                </Typography>
-              </MenuItem>
-              <MenuItem onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">
                   <Link to="/importdata" style={{ textDecoration: 'none', }}> importToExcel </Link>
                 </Typography>
               </MenuItem>
@@ -96,9 +91,6 @@ const Navbar = () => {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             <Typography sx={{ m: 2, color: 'white', display: 'block' }}>
               <Link to="/" style={{ textDecoration: 'none', color: 'white' }}> AllUsers </Link>
-            </Typography>
-            <Typography sx={{ m: 2, color: 'white', display: 'block' }}>
-              <Link to="/addnewuser" style={{ textDecoration: 'none', color: 'white' }}> AddNewUser </Link>
             </Typography>
             <Typography sx={{ m: 2, color: 'white', display: 'block' }}>
               <Link to="/importdata" style={{ textDecoration: 'none', color: 'white' }}>import Data </Link>
