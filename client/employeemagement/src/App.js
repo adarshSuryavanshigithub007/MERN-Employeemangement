@@ -13,11 +13,9 @@ function App() {
       <HashRouter>
         <Navbar />
         <Routes>
-          <Route exact path='/login' element={<Login />} />
           <Route exact path='/' element={<AllUser />} />
           <Route exact path='/addnewuser' element={<Adduser />} />
           <Route exact path='/edituser/:id' element={<EditUser />} />
-          <Route exact path='/register' element={<Register />} />
         </Routes>
       </HashRouter>
     </>

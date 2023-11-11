@@ -25,11 +25,7 @@ const AddNewUser = () => {
   const [district, UpdateDistrict] = useState("")
   const [address, UpadteAddress] = useState("");
   const [dept, UpdateDept] = useState("")
-  const [photo, UpdatePhoto] = useState("")
-  console.log(photo)
-  const[file,setFile]=useState('')
-const [data,setData]=useState([])
-console.log("photo",photo)
+
   const submit = () => {
     let newData = {
       "name": name,
@@ -43,7 +39,7 @@ console.log("photo",photo)
       "department": dept,
       "address": address,
       "status": status,
-      "photo": photo
+
     }
     let url = " http://localhost:8000/userlist"
     axios.post(url,newData).then((response) => {
@@ -74,26 +70,10 @@ console.log("photo",photo)
     UpdateDept('')
     UpdateDistrict('')
     UpdateState('')
-    UpdatePhoto('')
+
     UpdateMobile('')
     UpadteStatus('')
   },[1])
-  const handleImageChange = (event)=>{
-    const selectedImage = event.target.files[0]
-    console.log(selectedImage)
-    UpdatePhoto(event.target.value)
-    if (selectedImage) {
-      // Read the selected file as a data URL
-      const reader = new FileReader();
-
-      reader.onload = (e) => {
-        // Update the 'photo' state with the data URL of the selected image
-        UpdatePhoto(e.target.result);
-      };
-
-      reader.readAsDataURL(selectedImage);
-    }
-  }
   return (
     <>
       <Grid item xs={12} md={12} >
@@ -104,11 +84,6 @@ console.log("photo",photo)
       <Box sx={{ width: "50%", margin: "auto", marginTop: 5, }}>
         <Paper>
           <Grid container spacing={3} padding={1}>
-            <Grid item xs={12} md={12} >
-              <Grid align='center'>
-                <Avatar src={photo} sx={{ width: 46, height: 46, marginTop: "-45px" }} />
-              </Grid>
-            </Grid>
             <Grid item xs={12} md={6} >
               <Box sx={{ display: 'flex', alignItems: 'flex-end', marginBottom: 2 }}>
                 <PersonIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
@@ -144,9 +119,7 @@ console.log("photo",photo)
                     labelId="demo-simple-select-standard-label"
                     id="demo-simple-select-standard"
                     label="Age"
-                    onChange={obj => UpdateGender(obj.target.value)}
-
-                  >
+                    onChange={obj => UpdateGender(obj.target.value)} >
                     <MenuItem value={null}>----</MenuItem>
                     <MenuItem value="MALE">Male</MenuItem>
                     <MenuItem value="FEMALE">Female</MenuItem>
@@ -169,11 +142,6 @@ console.log("photo",photo)
               <Box sx={{ display: 'flex', alignItems: 'flex-end', marginBottom: 2 }}>
                 <AddLocationAltIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
                 <TextField label='Addess' variant="standard" fullWidth onChange={obj => UpadteAddress(obj.target.value)} />
-              </Box>
-              <Box sx={{ display: 'flex', alignItems: 'flex-end', marginBottom: 2 }}>
-                <CameraAltIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
-                <input  type='file' name='profileImage' fullWidth onChange={obj=>UpdatePhoto(obj.target.value)} />
-              
               </Box>
             </Grid>
             <Grid item xs={12} md={12} >
