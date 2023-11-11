@@ -22,7 +22,7 @@ const Adduser = () => {
                 title: "Good job!",
                 text: "You New user added!",
                 icon: "success",
-                button: "Aww yiss!",
+                button: "Ok!",
             });
             addUser(formdata)
             setFormData(initialFormData)

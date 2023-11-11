@@ -30,6 +30,7 @@ const Navbar = () => {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <Link to="/" style={{ textDecoration: 'none', color:'#ffff' }}> 
           <Typography
             variant="h6"
             noWrap
@@ -47,6 +48,7 @@ const Navbar = () => {
           >
             LOGO
           </Typography>
+          </Link>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"

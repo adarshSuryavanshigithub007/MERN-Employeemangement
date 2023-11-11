@@ -6,12 +6,12 @@ import reportWebVitals from './reportWebVitals';
 import Login from './Authentication/Login';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-if(localStorage.getItem("adminid") == null ){
-  root.render( <Login /> );
-}else{
-  root.render( <App /> );
-}
-
+// if(localStorage.getItem("adminid") == null ){
+//   root.render( <Login /> );
+// }else{
+ 
+// }
+root.render( <App /> );
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals

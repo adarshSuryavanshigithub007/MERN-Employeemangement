@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getDeleteUser, getUsers } from '../service/api'
+import { getDeleteUser, getUsers, searchUser } from '../service/api'
 import { Box, Button, Fab, Grid, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip } from '@mui/material'
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import EditIcon from '@mui/icons-material/Edit';
@@ -11,10 +11,9 @@ const AllUser = () => {
     const userHeader = ["s.no", "name", "userName", "email", "mobile", "action"]
     const [alluser, setAllUser] = useState([])
     const [currentPage, setCurrentPage] = useState(0);
-    const PER_PAGE = 4
+    const PER_PAGE = 5
     const offset = currentPage * PER_PAGE;
     const pageCount = Math.ceil(alluser.length / PER_PAGE);
-
     const getAllUsers = async () => {
         try {
             let response = await getUsers()
@@ -92,15 +91,12 @@ const AllUser = () => {
                                                     </TableCell>
                                                     <TableCell key={index} sx={{ fontSize: '15px', textAlign: 'center', padding: '0px' }}>
                                                         <Tooltip title='Edit' placement='left-start' arrow>
-                                                          
-                                                        <Link to={`edituser/${eachRecord._id}`} style={{ textDecoration: 'none', }}> <EditIcon color='primary' /></Link>  
-                                                           
+                                                            <Link to={`edituser/${eachRecord._id}`} style={{ textDecoration: 'none', }}> <EditIcon color='primary' /></Link>
                                                         </Tooltip>
                                                     </TableCell>
                                                     <TableCell key={index} sx={{ fontSize: '15px', textAlign: 'center', padding: '10px', cursor: 'pointer' }}>
                                                         <Tooltip title='Delete' placement='right-end' arrow>
-                                                        
-                                                                <DeleteRoundedIcon color='error'  onClick={() => handleDelete(eachRecord._id)} />
+                                                            <DeleteRoundedIcon color='error' onClick={() => handleDelete(eachRecord._id)} />
                                                         </Tooltip>
                                                     </TableCell>
                                                 </TableRow>
@@ -138,7 +134,6 @@ const AllUser = () => {
                         activeClassName={"active primary"}
                     />
                 </Grid>
-
             </Grid>
         </>
     )

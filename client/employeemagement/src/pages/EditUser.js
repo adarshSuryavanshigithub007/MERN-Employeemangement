@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { addUser, getUser } from '../service/api'
+import {  editUser, getUser } from '../service/api'
 import swal from 'sweetalert'
 import { Button, Grid, Paper, TextField } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit';
@@ -12,13 +12,11 @@ const EditUser = () => {
     email: "",
     mobile: ""
   }
-
   const [user, setUser] = useState(initialFormData)
   const loadUserDetails = async () => {
     const response = await getUser(id)
     setUser(response.data)
   }
-  console.log(user)
   useEffect(() => {
     loadUserDetails()
   }, [])
@@ -33,18 +31,16 @@ const EditUser = () => {
         title: "Good job!",
         text: "You New user added!",
         icon: "success",
-        button: "Aww yiss!",
+        button: "Ok!",
       });
-      await addUser(user)
+      await editUser(user, id)
       setUser(initialFormData)
-
     } catch (error) {
       console.log(error)
     }
-
   }
   const resetFormData = () => {
-
+    setUser(initialFormData)
   }
   return (
     <Grid marginTop={7}>
