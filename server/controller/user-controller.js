@@ -36,10 +36,10 @@ export const edituser = async (request, response) => { // edit user on Id
     let user = request.body
     const editUser = new User(user)
     try {
-        await user.updateOne({ _id: request.params.id }, editUser);
-        response.status(201).json(user)
+        await User.updateOne({ _id: request.params.id }, editUser);
+        response.status(201).json(editUser)
     } catch (error) {
-        response.status(404).json({ message: error.message })
+        response.status(409).json({ message: error.message })
     }
 }
 
@@ -50,3 +50,5 @@ export const deleteuser = async(request,response)=>{ // delete user on Id
         response.status(404).json({ message: error.message })
     }
 }
+
+
