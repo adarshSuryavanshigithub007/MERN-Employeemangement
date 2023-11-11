@@ -4,14 +4,14 @@ GET http://localhost:8000/all
 
 
 ###
-POST http://localhost:8000/add
+POST http://localhost:8000/userregister
 Content-Type: application/json
 
 {
-        "name": "Priyanka",
-        "username": "Priyanka",
-        "email": "Pri@gmail.com",
-        "mobile": "6086980672"
+        
+        "username": "Adarsh",
+        "email": "ADarsh@gmail.com",
+        "password": "adarsh1234"
 }
 
 

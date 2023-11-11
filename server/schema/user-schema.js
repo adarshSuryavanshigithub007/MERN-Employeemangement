@@ -7,10 +7,10 @@ const userschema = mongoose.Schema({
     email: String,
     mobile: String,
     photo:String,
-    birthdate:String
+    birthdate:String,
 
 })
 
-const user =  mongoose.model('user',userschema)
+const User =  mongoose.model('user',userschema)
 
-export default user
+export default User
