@@ -11,3 +11,17 @@ export const adminRegister = async (request, response) => { // Add All user
         response.status(409).json({ message: error.message })
     }
 }
+export const adminLogin = async (request, response) => {
+    try {
+        const input = { "email": request.body.email, "password": request.body.password };
+        const admin = await Admin.findOne(input);
+
+        if (admin) {
+            response.status(200).json({ message: "Login Successfull" });
+        } else {
+            response.status(401).json({ message: "Invalid email or password" });
+        }
+    } catch (error) {
+        response.status(500).json({ message: error.message });
+    }
+};

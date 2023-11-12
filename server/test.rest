@@ -4,14 +4,13 @@ GET http://localhost:8000/all
 
 
 ###
-POST http://localhost:8000/userregister
+POST   http://localhost:8000/userlogin
 Content-Type: application/json
 
 {
         
-        "username": "Adarsh",
         "email": "ADarsh@gmail.com",
-        "password": "adarsh1234"
+        "password": "adarsh12345"
 }
 
 
