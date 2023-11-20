@@ -1,138 +1,190 @@
-import { Avatar, Button, Grid, Paper, TextField, Typography } from '@mui/material';
-import axios from 'axios';
-import React, { useState } from 'react'
-
+import React, { useState } from "react";
+import {
+  Avatar,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
+  Grid,
+  Paper,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { getAdminLogin, getUserLogin, getUserRegister } from "../service/api";
+import swal from "sweetalert";
+import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 const Login = () => {
-    let [fullname, pickName] = useState("");
-    let [emailid, pickEmail] = useState("");
-    let [password, pickPassword] = useState("");
-    let [message, updateMessage] = useState("");
-    let[username, pickUsername] = useState("");
-    let[mypassword, pickMypassword] = useState("");
+  const [formDataChange, setFormDataChangeChange] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+  const [userLoginCheck, setLoginUserCheck] = useState(false);
+  const [adminLoginCheck, setLoginAdminCheck] = useState(false);
+  const [isValidEmail, setIsValidEmail] = useState(true);
+  const [isValidPassword, setIsValidPassword] = useState(true);
+  console.log(formDataChange);
+  console.log(adminLoginCheck);
+  const userLoginCheckBox = (event) => {
+    setLoginUserCheck(event.target.checked);
+  };
+  const cridentials = {
+    email: formDataChange.email,
+    password: formDataChange.password,
+  };
+  console.log(cridentials);
+  const adminLoginCheckBox = (event) => {
+    setLoginAdminCheck(event.target.checked);
+  };
+  const loginSubmit = async () => {
+    if (userLoginCheck === true) {
+      const cridentials = {
+        email: formDataChange.email,
+        password: formDataChange.password,
+      };
+      console.log(cridentials);
+      try {
+        const response = await getUserLogin(cridentials);
+        // Handle the response, e.g., update UI or set user state.
+        console.log(response.data);
+        toast.success(` User ${response.data.message}`);
+      } catch (error) {
+        toast.error(` User ${error.response.data.message}`);
+      }
 
-    const handleChangeName = (e)=>{
-        pickName(e.target.value)
+      console.log("user");
+    } else if (adminLoginCheck === true) {
+      try {
+        const response = await getAdminLogin(cridentials);
+        // Handle the response, e.g., update UI or set user state.
+        console.log(response);
+        toast.success(`Admin ${response.data.message}`);
+      } catch (error) {
+        console.log(error);
+         toast.error(`Admin ${error.response.data.message}`);
+      }
     }
-    const handleChangePassword = (e) => {
-       pickPassword(e.target.value)
-       
-    }
-    const handleChangeEmail = (event) => {
-        pickEmail(event.target.value)
-       
-    }
-    const Submit = () => {
-        let url = "http://localhost:8000/account";
-        let userdata = {username:fullname, email:emailid, password:password};
-        let postdata = {
-            headers:{'Content-Type':'application/json'},
-            method:"POST",
-            body:JSON.stringify(userdata)
-        };
-        fetch(url, postdata)
-        .then(response=>response.json())
-        .then(userinfo=>{
-            updateMessage("Account Created. Please Login");
-            pickName(""); pickEmail(""); pickPassword("");
-        })
-    }
-    const save = ()=>{
-        let url = "http://localhost:8000/account";
-        let userdata = {email:username, password:mypassword};
-        let postdata = {
-            headers:{'Content-Type':'application/json'},
-            method:"PUT",
-            body:JSON.stringify(userdata)
-        };
-        fetch(url, postdata)
-        .then(response=>response.json())
-        .then(userinfo=>{
-            if(userinfo.length>0){
-                localStorage.setItem("adminid", userinfo[0]._id);
-                localStorage.setItem("adminname", userinfo[0].username);
-                window.location.reload();
-            }else{
-                alert("Invalid or Not Exists !");
-            }
-        })
-    }
-    return (
-        <Grid container >
-            <Grid xs={12} md={6} >
-                <Grid container sx={{ justifyContent: 'center', display: "flex", marginTop: '60px', }}>
+  };
 
-                    <Paper elevation={5} sx={{ height: 'autov ', width: "300px", textAlign: 'center', }} square={false}>
-                        <Grid align='center' sx={{ marginTop: '-16px' }} >
-                            <Avatar sx={{ backgroundColor: 'green' }} ></Avatar>
-                        </Grid>
-                        <Typography variant='h6' sx={{ fontWeight: "bold" }} >Login </Typography>
-                        <Grid sx={{ margin: '10px' }}>
+  const handleChangeEmail = (event) => {
+    const emailPattern = /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/;
 
-                            <TextField
-                                fullWidth
-                                id="standard-basic" label="Email" type='email' variant="outlined" size='small'
-                                onChange={obj=>pickUsername(obj.target.value)}
-                                pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}"
+    // Check if the entered email matches the pattern
+    const isValidationEmail = emailPattern.test(event.target.value);
+    setIsValidEmail(isValidationEmail);
+    setFormDataChangeChange((params) => ({
+      ...params,
+      email: event.target.value,
+    }));
+  };
+  const handleChangePassWord = (event) => {
+    const passwordPattern =
+      /^(?=.*[A-Z])(?=(?:.*\d){3})(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-])[A-Za-z\d!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]{8,}$/;
+    const isValidationPassword = passwordPattern.test(event.target.value);
+    setIsValidPassword(isValidationPassword);
+    setFormDataChangeChange((params) => ({
+      ...params,
+      password: event.target.value,
+    }));
+  };
 
-                                sx={{ marginBottom: '20px' }}
-                            />
+  return (
+    <Grid xs={12} md={6}>
+      <Grid
+        container
+        sx={{ justifyContent: "center", display: "flex", marginTop: "60px" }}
+      >
+        <Paper
+          elevation={5}
+          sx={{ height: "autov ", width: "300px", textAlign: "center" }}
+          square={false}
+        >
+          <Grid align="center" sx={{ marginTop: "-16px" }}>
+            <Avatar sx={{ backgroundColor: "green" }}></Avatar>
+          </Grid>
+          <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+            Login{" "}
+          </Typography>
+          <Grid
+            align="center"
+            sx={{ display: "flex", justifyContent: "center" }}
+          >
+            <FormGroup>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    onChange={userLoginCheckBox}
+                    value={userLoginCheck}
+                  />
+                }
+                label="User"
+              />
+            </FormGroup>
+            <FormGroup>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    onChange={adminLoginCheckBox}
+                    value={adminLoginCheck}
+                  />
+                }
+                label="Admin"
+              />
+            </FormGroup>
+          </Grid>
+          <Grid sx={{ margin: "10px" }}>
+            <TextField
+              fullWidth
+              id="standard-basic"
+              label="Email"
+              type="email"
+              variant="outlined"
+              size="small"
+              pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}"
+              sx={{ marginBottom: "20px" }}
+              onChange={handleChangeEmail}
+              error={!isValidEmail}
+              helperText={!isValidEmail ? "invalid EmailId" : null}
+            />
+            <TextField
+              label="Password"
+              fullWidth
+              id="standard-basic"
+              type="password"
+              variant="outlined"
+              size="small"
+              sx={{ marginBottom: "20px" }}
+              onChange={handleChangePassWord}
+              pattern="^(?=.*[A-Z])(?=(?:.*\d){3})(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-])[A-Za-z\d!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]{8,}$"
+              error={!isValidPassword}
+              helperText={
+                !isValidPassword
+                  ? "Should be one capital letter, three numbers, and one special character"
+                  : null
+              }
+            />
+            <Button
+              variant="contained"
+              color="error"
+              onClick={loginSubmit}
+              disabled={
+                (userLoginCheck === true && adminLoginCheck === true) ||
+                (userLoginCheck === false && adminLoginCheck === false)
+              }
+            >
+              Login
+            </Button>
+            <p sx={{ color: "red" }}>
+              {"Register"}
 
+              <Link to={"/register"}>Register</Link>
+            </p>
+          </Grid>
+        </Paper>
+      </Grid>
+    </Grid>
+  );
+};
 
-                            <TextField
-                                label="Password"
-                                fullWidth
-                                onChange={obj=>pickMypassword(obj.target.value)}
-                                id="standard-basic" type='password' variant="outlined" size='small'
-                                sx={{ marginBottom: '20px' }}
-                            />
-
-                            <Button variant='contained' color='error' onClick={save}>Login</Button>
-                            <p sx={{color:'red'}}>  <span color='red'>{message}</span></p>
-                        </Grid>
-                    </Paper>
-                </Grid></Grid>
-              
-            <Grid xs={12} md={6}>
-                <Grid container sx={{ justifyContent: 'center', marginTop: '60px', }}>
-                    <Paper elevation={5} sx={{ height: 'autov ', width: "300px", textAlign: 'center', }} square={false}>
-                        <Grid align='center' sx={{ marginTop: '-16px' }} >
-                            <Avatar sx={{ backgroundColor: 'green' }} ></Avatar>
-                        </Grid>
-                        <Typography variant='h6' sx={{ fontWeight: "bold" }}   >Register </Typography>
-                        <Grid sx={{ margin: '10px' }}>
-                            <TextField
-                                fullWidth
-                                value={fullname}
-                            onChange={handleChangeName}
-                                id="standard-basic" label="User Name" variant="outlined" size='small'
-                                sx={{ marginBottom: '20px' }}
-                            />
-                            <TextField
-                                fullWidth
-                                id="standard-basic" label="Email" type='email' variant="outlined" size='small'
-                                pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}"
-                                sx={{ marginBottom: '20px' }}
-                                onChange={handleChangeEmail}
-                                value={emailid}
-                            />
-                            {/* {!validate && <p className="error">Please enter a valid email address.</p>} */}
-
-                            <TextField
-                                label="Password"
-                                fullWidth
-                                value={password}
-                                required
-                                onChange={handleChangePassword}
-                                id="standard-basic" type='password' variant="outlined" size='small'
-                                sx={{ marginBottom: '20px' }}
-                            />
-
-                            <Button variant='contained' color='error'  onClick={Submit} >Register</Button>
-                        </Grid>
-                    </Paper>
-                </Grid>
-            </Grid></Grid>
-    )
-}
-
-export default Login
+export default Login;

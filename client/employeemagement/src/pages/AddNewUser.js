@@ -13,6 +13,7 @@ import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import AirlineSeatReclineNormalIcon from '@mui/icons-material/AirlineSeatReclineNormal';
 import axios from 'axios';
 import swal from 'sweetalert';
+import { addUser } from '../service/api';
 const AddNewUser = () => {
   const [name, UpadateName] = useState("");
   const [fullname, UpdateFullName] = useState("")
@@ -41,10 +42,7 @@ const AddNewUser = () => {
       "status": status,
 
     }
-    let url = " http://localhost:8000/userlist"
-    axios.post(url,newData).then((response) => {
-      console.log(response)
-    })
+    addUser(newData)
     swal(name, "save successfully", "success")
     .catch((error)=>{
       if(error.response){

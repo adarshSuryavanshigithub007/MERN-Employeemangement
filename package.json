@@ -1,1 +1,5 @@
-{}
+{
+  "dependencies": {
+    "react-toastify": "^9.1.3"
+  }
+}
