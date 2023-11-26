@@ -10,11 +10,11 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { getAdminLogin, getUserLogin, getUserRegister } from "../service/api";
-import swal from "sweetalert";
+import { getAdminLogin, getUserLogin } from "../service/api";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const Login = () => {
+  const navigate = useNavigate();
   const [formDataChange, setFormDataChangeChange] = useState({
     username: "",
     email: "",
@@ -47,12 +47,17 @@ const Login = () => {
       try {
         const response = await getUserLogin(cridentials);
         // Handle the response, e.g., update UI or set user state.
-        console.log(response.data);
-        toast.success(` User ${response.data.message}`);
+        console.log(response.data.user);
+        const id = response.data.user._id
+        console.log(id)
+        localStorage.setItem("userId",id)
+        toast.success(` User  Login Successfull`);
+        navigate('/')
+        window.location.reload()
       } catch (error) {
+        console.log(error.response.data.message)
         toast.error(` User ${error.response.data.message}`);
       }
-
       console.log("user");
     } else if (adminLoginCheck === true) {
       try {
@@ -60,16 +65,20 @@ const Login = () => {
         // Handle the response, e.g., update UI or set user state.
         console.log(response);
         toast.success(`Admin ${response.data.message}`);
+        const id = response.data.admin._id
+        console.log(id)
+        localStorage.setItem("adminId",id)
+        navigate('/')
+        window.location.reload()
       } catch (error) {
         console.log(error);
-         toast.error(`Admin ${error.response.data.message}`);
+        toast.error(`Admin ${error.response.data.message}`);
       }
     }
   };
 
   const handleChangeEmail = (event) => {
     const emailPattern = /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/;
-
     // Check if the entered email matches the pattern
     const isValidationEmail = emailPattern.test(event.target.value);
     setIsValidEmail(isValidationEmail);
@@ -87,7 +96,7 @@ const Login = () => {
       ...params,
       password: event.target.value,
     }));
-  };
+  }; 
 
   return (
     <Grid xs={12} md={6}>

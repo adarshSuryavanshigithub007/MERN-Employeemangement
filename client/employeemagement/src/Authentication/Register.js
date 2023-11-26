@@ -10,8 +10,7 @@
     TextField,
     Typography,
     } from "@mui/material";
-    import { getAdminLogin, getUserLogin, getUserRegister } from "../service/api";
-    import swal from "sweetalert";
+    import { getUserRegister } from "../service/api";
     import { toast } from "react-toastify";
     import { Link } from "react-router-dom";
     const Register = () => {

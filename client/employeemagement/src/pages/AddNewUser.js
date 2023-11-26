@@ -9,9 +9,7 @@ import CalendarMonthSharpIcon from '@mui/icons-material/CalendarMonthSharp';
 import FmdGoodIcon from '@mui/icons-material/FmdGood';
 import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
 import CircleNotificationsIcon from '@mui/icons-material/CircleNotifications';
-import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import AirlineSeatReclineNormalIcon from '@mui/icons-material/AirlineSeatReclineNormal';
-import axios from 'axios';
 import swal from 'sweetalert';
 import { addUser } from '../service/api';
 const AddNewUser = () => {

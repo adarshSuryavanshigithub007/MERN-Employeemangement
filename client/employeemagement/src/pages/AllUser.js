@@ -24,7 +24,6 @@ const AllUser = () => {
     }
     useEffect(() => {
         getAllUsers()
-
     }, [])
     function handlePageClick({ selected: selectedPage }) {
         setCurrentPage(selectedPage)
@@ -59,11 +58,14 @@ const AllUser = () => {
                                 <TableRow >
                                     {
                                         userHeader.map((eachHeader, index) => (
-                                            (eachHeader === "action") ? (<><TableCell colSpan={2} sx={{ color: '#fff', fontSize: '15px', textAlign: 'center', padding: '0px' }}>
-                                                {eachHeader}
-                                            </TableCell></>) : (<> <TableCell sx={{ color: '#fff', fontSize: '15px', textAlign: 'center', padding: '10px' }}>
-                                                {eachHeader}
-                                            </TableCell></>)
+                                            (eachHeader === "action") ? (<>
+                                            {localStorage.getItem("adminId")?(  <TableCell colSpan={2} sx={{ color: '#fff', fontSize: '15px', textAlign: 'center', padding: '0px' }}>
+                                            {eachHeader}
+                                        </TableCell>):null}
+                                        </>) : (<> 
+                                        <TableCell sx={{ color: '#fff', fontSize: '15px', textAlign: 'center', padding: '10px' }}>
+                                            {eachHeader}
+                                        </TableCell></>)
                                         ))
                                     }
                                 </TableRow>
@@ -90,14 +92,14 @@ const AllUser = () => {
                                                         {eachRecord.mobile}
                                                     </TableCell>
                                                     <TableCell key={index} sx={{ fontSize: '15px', textAlign: 'center', padding: '0px' }}>
-                                                        <Tooltip title='Edit' placement='left-start' arrow>
+                                                        {localStorage.getItem("adminId")?( <Tooltip title='Edit' placement='left-start' arrow>
                                                             <Link to={`edituser/${eachRecord._id}`} style={{ textDecoration: 'none', }}> <EditIcon color='primary' /></Link>
-                                                        </Tooltip>
+                                                        </Tooltip>):null}
                                                     </TableCell>
                                                     <TableCell key={index} sx={{ fontSize: '15px', textAlign: 'center', padding: '10px', cursor: 'pointer' }}>
-                                                        <Tooltip title='Delete' placement='right-end' arrow>
+                                                        {localStorage.getItem("adminId")?( <Tooltip title='Delete' placement='right-end' arrow>
                                                             <DeleteRoundedIcon color='error' onClick={() => handleDelete(eachRecord._id)} />
-                                                        </Tooltip>
+                                                        </Tooltip>):null}
                                                     </TableCell>
                                                 </TableRow>
                                             </>
@@ -106,9 +108,10 @@ const AllUser = () => {
                                 }
                                 <TableRow>
                                     <TableCell align="center" colSpan={7}>
-                                        <Box display="flex" justifyContent="flex-end">
+                                        { localStorage.getItem("adminId") ? (<><Box display="flex" justifyContent="flex-end">
                                             <Link to="/addnewuser" style={{ textDecoration: 'none', }}>  <Button variant='contained' color='success' size='medium' endIcon={<AddIcon />}>ADD New User</Button> </Link>
-                                        </Box>
+                                        </Box></>):""}
+                                        
                                     </TableCell>
                                 </TableRow>
                             </TableBody>

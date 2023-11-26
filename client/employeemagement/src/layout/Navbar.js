@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import { AppBar, Avatar, Box, Button, Container, IconButton, MenuItem, Toolbar, Tooltip, Typography } from '@mui/material';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { Link, useNavigate } from 'react-router-dom'; // Import Link from react-router-dom
 import AdbIcon from '@mui/icons-material/Adb';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const navigate = useNavigate();
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -24,6 +25,8 @@ const Navbar = () => {
   const logOut = ()=>{
     localStorage.clear()
     window.location.reload()
+    localStorage.removeItem("userId");
+    navigate("/");
   }
   return (
     <AppBar position="static">
@@ -83,20 +86,14 @@ const Navbar = () => {
                   <Link to="/" style={{ textDecoration: 'none', }}> AllUsers</Link>
                 </Typography>
               </MenuItem>
-              <MenuItem onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">
-                  <Link to="/importdata" style={{ textDecoration: 'none', }}> importToExcel </Link>
-                </Typography>
-              </MenuItem>
+            
             </Menu>
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             <Typography sx={{ m: 2, color: 'white', display: 'block' }}>
               <Link to="/" style={{ textDecoration: 'none', color: 'white' }}> AllUsers </Link>
             </Typography>
-            <Typography sx={{ m: 2, color: 'white', display: 'block' }}>
-              <Link to="/importdata" style={{ textDecoration: 'none', color: 'white' }}>import Data </Link>
-            </Typography>
+            
           </Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
