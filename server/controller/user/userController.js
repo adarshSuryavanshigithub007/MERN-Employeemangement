@@ -18,7 +18,8 @@ export const userLogin = async (request, response) => {
         const user = await Userauth.findOne(input);
 
         if (user) {
-            response.status(200).json({ message: "Login Successfull" });
+            // response.status(200).json(user)
+            response.status(200).json({ user, message: "Login Successfull" });
         } else {
             response.status(401).json({ message: "Invalid email or password" });
         }

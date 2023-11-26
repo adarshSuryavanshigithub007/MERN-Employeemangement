@@ -17,7 +17,7 @@ export const adminLogin = async (request, response) => {
         const admin = await Admin.findOne(input);
 
         if (admin) {
-            response.status(200).json({ message: "Login Successfull" });
+            response.status(200).json({ admin, message: "Login Successfull" });
         } else {
             response.status(401).json({ message: "Invalid email or password" });
         }
