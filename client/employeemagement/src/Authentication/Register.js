@@ -130,7 +130,7 @@
                 <p sx={{ color: "red" }}>
                     {" Login"}
 
-                    <Link to={"/login"}>Login</Link>
+                    <Link to={"/"}>Login</Link>
                 </p>
                 </Grid>
             </Paper>
